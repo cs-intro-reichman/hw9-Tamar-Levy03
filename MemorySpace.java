@@ -1,5 +1,4 @@
 
-
 /**
  * Represents a managed memory space. The memory space manages a list of
  * allocated
@@ -142,24 +141,26 @@ public class MemorySpace {
 		if (freeList.getSize() < 2) {
 			return;
 		}
-		int i = 1;
+		int i = 0;
 		while (i < freeList.getSize()) {
 			MemoryBlock currentBlock = freeList.getBlock(i);
 			MemoryBlock mergeBlock = null;
 			int j = 0;
+			int index = 0;
 			while (j < freeList.getSize()) {
 				if ((currentBlock.baseAddress + currentBlock.length) == freeList.getBlock(j).baseAddress) {
 					mergeBlock = freeList.getBlock(j);
+					index = j;
 					break;
 				}
+				j++;
 			}
 			if (mergeBlock != null) {
 				currentBlock.length = currentBlock.length + mergeBlock.length;
-				freeList.remove(j);
+				freeList.remove(index);
 			} else {
 				i++;
 			}
 		}
 	}
 }
-
