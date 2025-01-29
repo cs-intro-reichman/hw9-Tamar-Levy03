@@ -272,5 +272,4 @@ public class LinkedList {
 		}
 		return s;
 	}
-	
 }
